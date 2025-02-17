@@ -69,6 +69,8 @@ jobs:
             retention-days: 5
 
     docker:
+      permissions:
+        packages: write
       runs-on: ubuntu-latest
       needs: [unit-testing, code-coverage]
       steps:
@@ -77,10 +79,8 @@ jobs:
 
         - name: Set lowercase repository owner
           run: |
-            echo $GITHUB_ENV
+            echo $GITHUB_ENV | cat
             echo "REPO_OWNER_LC=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_ENV
-            echo $GITHUB_ENV
-
 
         - name: GHCR login
           uses: docker/login-action@v3
